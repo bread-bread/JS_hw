@@ -69,15 +69,19 @@ function returnCounter(number) {
  Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
  */
 function bindFunction(fn) {
-    let bArgs = [].slice.call(arguments, 1);
+    var newFunc = fn.bind(null, arguments[1]);
 
-    let newFunc = function() {
-        let fArgs = [].slice.call(arguments);
-        
-        return fn.apply(null, bArgs.concat(fArgs));
+    for (let i = 2; i<arguments.length; i++) {
+        newFunc = newFunc.bind(null, arguments[i]);
     }
-
+    
     return newFunc;
+    // let newFunc = function() {
+        
+    //     return fn.apply(null, bArgs);
+    // }
+
+    // return newFunc;
 }
 
 export {
