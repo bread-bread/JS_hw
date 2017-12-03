@@ -258,12 +258,12 @@ function observeChildNodes(where, fn) {
             if (mutRec.addedNodes.length) {
                 objArg.type = 'insert';
                 for (let i = 0; i < mutRec.addedNodes.length; i++) {
-                    objArg.nodes.push(mutRec.addedNodes[i].nodeName);
+                    objArg.nodes.push(mutRec.addedNodes[i]);
                 }
             } else if (mutRec.removedNodes.length) {
                 objArg.type = 'remove';
                 for (let i = 0; i < mutRec.removedNodes.length; i++) {
-                    objArg.nodes.push(mutRec.removedNodes[i].nodeName);
+                    objArg.nodes.push(mutRec.removedNodes[i]);
                 }
             }
         })
