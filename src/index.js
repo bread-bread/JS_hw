@@ -249,10 +249,10 @@ function observeChildNodes(where, fn) {
         objArg = {};
 
     function mutationObjectCallback(mutRecList) {
-        let arrChangedElems = [];
 
         mutRecList.forEach(function(mutRec) {
-
+            let arrChangedElems = [];
+            
             if (mutRec.addedNodes.length) {
                 objArg.type = 'insert';
                 for (let i = 0; i < mutRec.addedNodes; i++) {
