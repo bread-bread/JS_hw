@@ -246,27 +246,28 @@ function collectDOMStat(root) {
  */
 function observeChildNodes(where, fn) {
     let observer = new MutationObserver(mutationObjectCallback),
-        objArg = {};
+        objArg = {
+            type: 'str',
+            nodes: []
+        };
 
     function mutationObjectCallback(mutRecList) {
 
         mutRecList.forEach(function(mutRec) {
-            let arrChangedElems = [];
-            
+
             if (mutRec.addedNodes.length) {
                 objArg.type = 'insert';
-                for (let i = 0; i < mutRec.addedNodes; i++) {
-                    arrChangedElems.push(mutRec.addedNodes[i].nodeName);
+                for (let i = 0; i < mutRec.addedNodes.length; i++) {
+                    objArg.nodes.push(mutRec.addedNodes[i].nodeName);
                 }
             } else if (mutRec.removedNodes.length) {
                 objArg.type = 'remove';
-                for (let i = 0; i < mutRec.removedNodes; i++) {
-                    arrChangedElems.push(mutRec.removedNodes[i].nodeName);
+                for (let i = 0; i < mutRec.removedNodes.length; i++) {
+                    objArg.nodes.push(mutRec.removedNodes[i].nodeName);
                 }
             }
-            objArg.nodes = arrChangedElems;
-            fn(objArg);
         })
+        fn(objArg);
     }
 
     observer.observe(where, {
