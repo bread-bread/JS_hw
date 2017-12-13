@@ -46,8 +46,6 @@ filterNameInput.addEventListener('keyup', function () {
 addButton.addEventListener('click', () => {
     if (addNameInput.value && addValueInput.value) {
         document.cookie = addNameInput.value + '=' + addValueInput.value;
-        addNameInput.value = '';
-        addValueInput.value = '';
         createCookieTable();
     }
 });
@@ -75,6 +73,15 @@ function isMatching(fullName, fullValue, chunk) {
     return false;
 }
 
+function createTable (name, value) {
+    listTable.innerHTML +=
+        '<tr>' +
+        '<td>' + name + '</td>' +
+        '<td>' + value + '</td>' +
+        '<td><button id="remove-button">Удалить</button></td>' +
+        '</tr>';
+}
+
 function createCookieTable() {
     let cookie = document.cookie,
         cookieArr = cookie.split('; '),
@@ -91,20 +98,10 @@ function createCookieTable() {
     if (cookie) {
         for (let key in cookieObj) {
             if (!filterNameInput.value.trim()) {
-                listTable.innerHTML +=
-                    '<tr>' +
-                    '<td>' + key + '</td>' +
-                    '<td>' + cookieObj[key] + '</td>' +
-                    '<td><button id="remove-button">Удалить</button></td>' +
-                    '</tr>';
+                createTable(key, cookieObj[key]);
             }
             if (isMatching(key, cookieObj[key], filterNameInput.value.trim())) {
-                listTable.innerHTML +=
-                    '<tr>' +
-                    '<td>' + key + '</td>' +
-                    '<td>' + cookieObj[key] + '</td>' +
-                    '<td><button id="remove-button">Удалить</button></td>' +
-                    '</tr>';
+                createTable(key, cookieObj[key]);
             }
         }
     }
