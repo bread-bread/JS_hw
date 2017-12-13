@@ -18,7 +18,7 @@ function createWindow(name, width, height) {
  * @param {Window} window - окно, размер которого надо изменить
  */
 function closeWindow(window) {
-    window.close(window);
+    window.close();
 }
 
 /**
